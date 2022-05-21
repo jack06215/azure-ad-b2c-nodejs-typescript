@@ -16,7 +16,7 @@ const options: IBearerStrategyOptionWithRequest = {
     isB2C: config.settings.isB2C,
     validateIssuer: config.settings.validateIssuer,
     loggingLevel: "info",
-    passReqToCallback: true,
+    passReqToCallback: config.settings.passReqToCallback,
 };
 
 const bearerStrategy = new BearerStrategy(options, (_, token, done) => {
@@ -44,11 +44,10 @@ app.get(
     "/hello",
     passport.authenticate("oauth-bearer", { session: false }),
     (req, res) => {
-        const payload: IAuthInfo = { ...req.authInfo };
-        console.log("Validated claims: ", payload);
+        console.log("Validated claims: ", req.authInfo);
 
         // Service relies on the name claim.
-        res.status(200).json({ name: req.authInfo?.name });
+        res.status(200).json({ name: req.authInfo.name } as IAuthInfo);
     }
 );
 

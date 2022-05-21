@@ -17,8 +17,7 @@ const config = {
   "settings": {
     "isB2C": true,
     "validateIssuer": true,
-    "passReqToCallback": false,
-    "loggingLevel": "info"
+    "passReqToCallback": true,
   }
 }
 

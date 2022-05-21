@@ -1,22 +1,13 @@
 import express from "express";
+import { ITokenPayload } from 'passport-azure-ad'
 
-interface IAuthInfo {
-    exp: number
-    nbf: number
-    aud: string
-    sub: string
+interface IAuthInfo extends ITokenPayload {
     country: string
-    name: string
     postalCode: string
     family_name: string
     given_name: string
     emails: Array<string>
-    tfp: string
     nonce: string
-    scp: string
-    azp: string
-    ver: string
-    iat: number
 }
 
 declare module 'express-serve-static-core' {

@@ -6,7 +6,7 @@ import {
     IBearerStrategyOptionWithRequest,
 } from "passport-azure-ad";
 import config from "./config";
-import { IAuthInfo } from "./types/express";
+import { HelloResponse } from "./types/express";
 
 const options: IBearerStrategyOptionWithRequest = {
     identityMetadata: `https://${config.credentials.tenantName}.b2clogin.com/${config.credentials.tenantName}.onmicrosoft.com/${config.policies.policyName}/${config.metadata.version}/${config.metadata.discovery}`,
@@ -47,7 +47,11 @@ app.get(
         console.log("Validated claims: ", req.authInfo);
 
         // Service relies on the name claim.
-        res.status(200).json({ name: req.authInfo.name } as IAuthInfo);
+        res.status(200).json({
+            name: req.authInfo.name,
+            country: req.authInfo.country,
+            jobTitle: req.authInfo.jobTitle,
+        } as HelloResponse);
     }
 );
 
